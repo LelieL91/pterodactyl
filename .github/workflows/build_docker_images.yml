@@ -30,14 +30,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup QEMU
-        uses: docker/setup-qemu-action@v3
-        
-      - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          buildkitd-flags: --debug
-
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
@@ -46,22 +38,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/leliel91/${{ matrix.images }}:latest
-
-  cleanup:
-    name: Purge old GHCR images
-    needs: push
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        images:
-          - steam
-          - steam-installer
-    steps:
-      - name: Cleanup untagged GHCR images
-        uses: actions/delete-package-versions@v5
-        with:
-          delete-only-untagged-versions: 'true'
-          min-versions-to-keep: 6
-          package-name: '${{ matrix.images }}'
-          package-type: 'container'
+            ghcr.io/leliel91/pterodactyl:${{ matrix.images }}

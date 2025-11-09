@@ -1,0 +1,17 @@
+name: Clean Docker Images
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    name: Purge old GHCR images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup untagged GHCR images
+        uses: actions/delete-package-versions@v5
+        with:
+          delete-only-untagged-versions: 'true'
+          min-versions-to-keep: 0
+          package-name: 'pterodactyl'
+          package-type: 'container'

@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         images:
+          - debian-installer
           - steam
-          - steam-installer
     steps:
       - uses: actions/checkout@v5.0.0
 

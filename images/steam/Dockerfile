@@ -10,7 +10,7 @@ ENV         DEBIAN_FRONTEND=noninteractive
 
 ## Update base packages + Install dependencies + Clean temp files + Configure locale
 RUN         apt update && apt -y upgrade && apt -y --no-install-recommends install \
-            ca-certificates curl lib32gcc-s1 libicu-dev locales iproute2 gdb \
+            ca-certificates curl lib32gcc-s1 libicu-dev locales iproute2 gdb tini \
             && apt clean \
             && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
             && apt -y autoremove \
@@ -24,5 +24,7 @@ USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
-COPY        ./entrypoint.sh /entrypoint.sh
-CMD         [ "/bin/bash", "/entrypoint.sh" ]
+COPY        --chown=container:container ./../entrypoint.sh /entrypoint.sh
+RUN         chmod +x /entrypoint.sh
+ENTRYPOINT  ["/usr/bin/tini", "-g", "--"]
+CMD         ["/entrypoint.sh"]

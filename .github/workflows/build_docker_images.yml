@@ -19,6 +19,8 @@ jobs:
       matrix:
         images:
           - debian-installer
+          - debian-games
+          - debian13-os
           - steam
     steps:
       - uses: actions/checkout@v5.0.0

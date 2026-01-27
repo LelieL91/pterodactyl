@@ -10,7 +10,7 @@ ENV         DEBIAN_FRONTEND=noninteractive
 
 ## Update base packages + Install dependencies + Clean temp files + Configure locale
 RUN         apt update && apt -y upgrade && apt -y --no-install-recommends install \
-            ca-certificates curl lib32gcc-s1 libicu-dev locales iproute2 gdb tini \
+            ca-certificates curl lib32gcc-s1 libicu-dev locales iproute2 tini \
             && apt -y autoremove \
             && apt clean \
             && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \

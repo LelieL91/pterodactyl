@@ -14,7 +14,7 @@ RUN         apt update && apt -y upgrade && apt -y --no-install-recommends insta
             && apt -y autoremove \
             && apt clean \
             && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-            && echo "10.0.40.101 gamerarena.it" >> /etc/hosts \
+            && echo '10.0.40.101 gamerarena.it' >> /etc/hosts \
             && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
             && dpkg-reconfigure --frontend=noninteractive locales \
             && update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
